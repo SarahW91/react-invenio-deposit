@@ -18,6 +18,8 @@ import FundingModal from "./FundingModal";
 
 import { i18next } from "@translations/i18next";
 
+import Overridable from "react-overridable";
+
 function FundingFieldForm(props) {
   const {
     label,
@@ -107,46 +109,52 @@ function FundingFieldForm(props) {
               />
             );
           })}
-          <FundingModal
-            searchConfig={searchConfig}
-            trigger={
-              <Button
-                type="button"
-                key="custom"
-                icon
-                labelPosition="left"
-                className="mb-5"
-              >
-                <Icon name="add" />
-                {i18next.t("Add award")}
-              </Button>
-            }
-            onAwardChange={(selectedFunding) => {
-              formikArrayPush(selectedFunding);
-            }}
-            mode="standard"
-            action="add"
-            deserializeAward={deserializeAward}
-            deserializeFunder={deserializeFunder}
-            computeFundingContents={computeFundingContents}
-          />
-          <FundingModal
-            searchConfig={searchConfig}
-            trigger={
-              <Button type="button" key="custom" icon labelPosition="left">
-                <Icon name="add" />
-                {i18next.t("Add custom")}
-              </Button>
-            }
-            onAwardChange={(selectedFunding) => {
-              formikArrayPush(selectedFunding);
-            }}
-            mode="custom"
-            action="add"
-            deserializeAward={deserializeAward}
-            deserializeFunder={deserializeFunder}
-            computeFundingContents={computeFundingContents}
-          />
+
+          <Overridable id="ReactInvenioDeposit.FundingField.AddAward.Button">
+            <FundingModal
+              searchConfig={searchConfig}
+              trigger={
+                <Button
+                  type="button"
+                  key="custom"
+                  icon
+                  labelPosition="left"
+                  className="mb-5"
+                >
+                  <Icon name="add" />
+                  {i18next.t("Add award")}
+                </Button>
+              }
+              onAwardChange={(selectedFunding) => {
+                formikArrayPush(selectedFunding);
+              }}
+              mode="standard"
+              action="add"
+              deserializeAward={deserializeAward}
+              deserializeFunder={deserializeFunder}
+              computeFundingContents={computeFundingContents}
+            />
+          </Overridable>
+
+          <Overridable id="ReactInvenioDeposit.FundingField.AddCustom.Button">
+            <FundingModal
+              searchConfig={searchConfig}
+              trigger={
+                <Button type="button" key="custom" icon labelPosition="left">
+                  <Icon name="add" />
+                  {i18next.t("Add custom")}
+                </Button>
+              }
+              onAwardChange={(selectedFunding) => {
+                formikArrayPush(selectedFunding);
+              }}
+              mode="custom"
+              action="add"
+              deserializeAward={deserializeAward}
+              deserializeFunder={deserializeFunder}
+              computeFundingContents={computeFundingContents}
+            />
+          </Overridable>
         </List>
       </Form.Field>
     </DndProvider>
